@@ -14,7 +14,6 @@ export default {
   components: {},
   setup() {
     return {
-      leftDrawer: false,
       tab: ref(""),
     };
   },

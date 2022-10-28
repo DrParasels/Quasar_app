@@ -1,18 +1,26 @@
 <template>
-  <h2>Распорядок на неделю</h2>
-
-  <q-input
-    stack-label="false"
-    standout="bg-teal text-white w-500"
-    v-model="text"
-    label="Что нужно сделать"
-  />
-
-  <q-btn color="primary" label="Добавить" />
-  <br />
+  <h3>Распорядок на неделю</h3>
+  <input-tasks />
   <div class="day">
     <div class="day__list">
       <div class="day__item">Съесть банан</div>
     </div>
   </div>
 </template>
+
+<script>
+import InputTasks from "@/components/InputTasks.vue";
+export default {
+  components: { InputTasks },
+  setup() {
+    return {};
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.inner {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
