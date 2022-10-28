@@ -4,16 +4,10 @@
 
     <!-- (Optional) The Header -->
     <q-header elevated>
-      <q-toolbar class="row justify-center">
-        <q-tabs v-model="tab">
-          <q-route-tab name="Main" label="Главная" to="/" />
-          <q-route-tab name="Day" label="Распорядок на день" to="/day" />
-          <q-route-tab name="Week" label="Распорядок на неделю" to="/week" />
-        </q-tabs>
-      </q-toolbar>
+      <nav-bar />
     </q-header>
 
-    <q-page-container>
+    <q-page-container class="q-px-md">
       <!-- This is where pages get injected -->
       <router-view />
     </q-page-container>
@@ -21,13 +15,11 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import NavBar from "@/components/NavBar.vue";
 export default {
+  components: { NavBar },
   setup() {
-    return {
-      leftDrawer: false,
-      tab: ref(""),
-    };
+    return {};
   },
 };
 </script>

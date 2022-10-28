@@ -1,4 +1,4 @@
-# no_name_app
+# Приложение Vue c использованием Quasar Vuex Router
 
 ## Project setup
 ```

@@ -1,14 +1,14 @@
 <template>
-  <nav-bar />
-  <router-view />
+  <div id="q-app">
+    <router-view />
+  </div>
 </template>
 
 <script>
-import NavBar from "./components/NavBar.vue";
 export default {
   name: "LayoutDefault",
 
-  components: { NavBar },
+  components: {},
 
   setup() {
     return {};
