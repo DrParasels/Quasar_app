@@ -8,13 +8,7 @@
         src="https://cdn.quasar.dev/img/parallax2.jpg"
       >
       </q-img>
-      <q-btn
-        class="photo__btn"
-        push
-        color="teal"
-        label="Изменить"
-        @click="refresh"
-      />
+      <q-btn class="photo__btn" push color="teal" label="Изменить" />
     </div>
     <div class="statistics">
       <h4 class="statistic__title q-px-md q-my-none">

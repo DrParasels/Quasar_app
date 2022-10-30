@@ -1,13 +1,18 @@
 <template>
-  <div>
-    <q-input
-      standout="bg-teal text-white w-500"
-      v-model="task"
-      placeholder="Что нужно сделать"
-    />
-
-    <q-btn @click="add" color="primary" label="Добавить" />
-  </div>
+  <q-input
+    v-model="newTask"
+    @keyup.enter="add"
+    class="col"
+    square
+    bg-color="white"
+    filled
+    placeholder="Что нужно сделать"
+    dense
+  >
+    <template v-slot:append>
+      <q-btn @click="add" round dense flat icon="add" />
+    </template>
+  </q-input>
 </template>
 
 <script>
@@ -20,17 +25,17 @@ export default {
   },
   data() {
     return {
-      task: "",
+      newTask: "",
     };
   },
   methods: {
     add() {
-      if (this.task.length === 0) {
+      if (this.newTask.length === 0) {
         return;
       }
-      this.$emit("add-task", this.task);
-      this.task = "";
-      console.log(this.task);
+      this.$emit("add-task", this.newTask);
+      this.newTask = "";
+      console.log(this.newTask);
     },
   },
 };

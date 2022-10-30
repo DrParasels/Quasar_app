@@ -2,7 +2,10 @@
   <h3>Распорядок на день</h3>
 
   <div class="day">
-    <q-list class="bg-white" separator bordered>
+    <div class="row q-pa-sm bg-primary">
+      <input-tasks @add-task="add" />
+    </div>
+    <q-list class="bg-white" separator>
       <q-item
         v-for="(task, index) of tasks"
         :key="task.title"
@@ -34,7 +37,9 @@
         </q-item-section>
       </q-item>
     </q-list>
-    <input-tasks @add-task="add" />
+    <div class="text-h5 text-primary text-center" v-if="!tasks.length">
+      Тут пока пусто
+    </div>
   </div>
 </template>
 
@@ -67,6 +72,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.day {
+  max-width: 700px;
+}
 .done {
   .q-item__label {
     text-decoration: line-through;
