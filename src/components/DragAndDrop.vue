@@ -1,227 +1,183 @@
 <template>
-  <div>
-    <div class="q-px-md q-pt-md">
-      <div
-        @dragenter="onDragEnter"
-        @dragleave="onDragLeave"
-        @dragover="onDragOver"
-        @drop="onDrop"
-        class="drop-target rounded-borders overflow-hidden"
+  <div class="hooo">
+    <div class="col-3">
+      <draggable
+        class="row list-group1"
+        :list="weekTasks"
+        group="tasks"
+        itemKey="name"
       >
-        <div
-          id="box1"
-          draggable="true"
-          @dragstart="onDragStart"
-          class="box navy"
-        />
-        <div
-          id="box2"
-          draggable="true"
-          @dragstart="onDragStart"
-          class="box red"
-        />
-        <div
-          id="box3"
-          draggable="true"
-          @dragstart="onDragStart"
-          class="box green"
-        />
-        <div
-          id="box4"
-          draggable="true"
-          @dragstart="onDragStart"
-          class="box orange"
-        />
-        <div
-          id="box5"
-          draggable="true"
-          @dragstart="onDragStart"
-          class="box navy"
-        />
-        <div
-          id="box6"
-          draggable="true"
-          @dragstart="onDragStart"
-          class="box red"
-        />
-        <div
-          id="box7"
-          draggable="true"
-          @dragstart="onDragStart"
-          class="box green"
-        />
-        <div
-          id="box8"
-          draggable="true"
-          @dragstart="onDragStart"
-          class="box orange"
-        />
-      </div>
-      <div class="row justify-between">
-        <div
-          v-for="item in 7"
-          :key="item"
-          @dragenter="onDragEnter"
-          @dragleave="onDragLeave"
-          @dragover="onDragOver"
-          @drop="onDrop"
-          class="drop-target rounded-borders overflow-hidden q-mt-md"
-        />
+        <template #item="{ element, index }">
+          <q-item
+            class="week-item"
+            @click="element.done = !element.done"
+            :class="{ 'done bg-blue-1': element.done }"
+            clickable
+            v-ripple
+          >
+            <q-item-section avatar>
+              <q-checkbox
+                v-model="element.done"
+                color="primary"
+                class="no-pointer-events"
+              />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>{{ element.title }}</q-item-label>
+            </q-item-section>
+            <q-item-section v-if="element.done" side>
+              <q-btn
+                @click.stop="deleteTask(index)"
+                unelevated
+                round
+                dense
+                color="primary"
+                icon="delete"
+              />
+            </q-item-section>
+          </q-item>
+        </template>
+      </draggable>
+    </div>
+    <div class="inner">
+      <div v-for="item in weekArr" :key="item" class="col-3 row">
+        <draggable
+          class="list-group"
+          :list="item.list"
+          group="tasks"
+          itemKey="name"
+        >
+          <template #item="{ element, index }">
+            <q-item
+              class="week-item bg-blue-2"
+              @click="element.done = !element.done"
+              :class="{ 'done bg-blue-1': element.done }"
+              clickable
+              v-ripple
+            >
+              <q-item-section avatar>
+                <q-checkbox
+                  v-model="element.done"
+                  color="primary"
+                  class="no-pointer-events"
+                />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>{{ element.title }}</q-item-label>
+              </q-item-section>
+              <q-item-section v-if="element.done" side>
+                <q-btn
+                  @click.stop="deleteTask(index)"
+                  unelevated
+                  round
+                  dense
+                  color="primary"
+                  icon="delete"
+                />
+              </q-item-section>
+            </q-item>
+          </template>
+          <template #header>
+            <div
+              class="btn-group list-group-item"
+              role="group"
+              aria-label="Basic example"
+            >
+              <span class="list-name">{{ item.name }}</span>
+              <q-btn
+                class="glossy"
+                size="10px"
+                round
+                color="secondary"
+                icon="add"
+              />
+            </div>
+          </template>
+        </draggable>
       </div>
     </div>
   </div>
 </template>
-
 <script>
-// import { ref } from "vue";
+import draggable from "../../node_modules/vuedraggable";
 export default {
-  setup() {
-    // const status1 = ref([]);
-    // const status2 = ref([]);
+  props: {
+    weekTasks: {
+      type: Array,
+      required: true,
+    },
+  },
+  name: "two-lists",
+  display: "Two Lists",
+  order: 1,
+  components: {
+    draggable,
+  },
+  data() {
     return {
-      // handler1(mutationRecords) {
-      //   status1.value = [];
-      //   for (const index in mutationRecords) {
-      //     const record = mutationRecords[index];
-      //     const info = `type: ${record.type}, nodes added: ${
-      //       record.addedNodes.length > 0 ? "true" : "false"
-      //     }, nodes removed: ${
-      //       record.removedNodes.length > 0 ? "true" : "false"
-      //     }, oldValue: ${record.oldValue}`;
-      //     status1.value.push(info);
-      //   }
-      // },
-
-      // handler2(mutationRecords) {
-      //   // status2.value = [];
-      //   for (const index in mutationRecords) {
-      //     const record = mutationRecords[index];
-      //     const info = `type: ${record.type}, nodes added: ${
-      //       record.addedNodes.length > 0 ? "true" : "false"
-      //     }, nodes removed: ${
-      //       record.removedNodes.length > 0 ? "true" : "false"
-      //     }, oldValue: ${record.oldValue}`;
-      //     status2.value.push(info);
-      //   }
-      // },
-
-      // handler3(mutationRecords) {
-      //   status2.value = [];
-      //   for (const index in mutationRecords) {
-      //     const record = mutationRecords[index];
-      //     const info = `type: ${record.type}, nodes added: ${
-      //       record.addedNodes.length > 0 ? "true" : "false"
-      //     }, nodes removed: ${
-      //       record.removedNodes.length > 0 ? "true" : "false"
-      //     }, oldValue: ${record.oldValue}`;
-      //     status2.value.push(info);
-      //   }
-      // },
-
-      // store the id of the draggable element
-      onDragStart(e) {
-        e.dataTransfer.setData("text", e.target.id);
-        e.dataTransfer.dropEffect = "move";
-      },
-
-      onDragEnter(e) {
-        // don't drop on other draggables
-        if (e.target.draggable !== true) {
-          e.target.classList.add("drag-enter");
-        }
-      },
-
-      onDragLeave(e) {
-        e.target.classList.remove("drag-enter");
-      },
-
-      onDragOver(e) {
-        e.preventDefault();
-      },
-
-      onDrop(e) {
-        e.preventDefault();
-
-        // don't drop on other draggables
-        if (e.target.draggable === true) {
-          return;
-        }
-
-        const draggedId = e.dataTransfer.getData("text");
-        const draggedEl = document.getElementById(draggedId);
-
-        // check if original parent node
-        if (draggedEl.parentNode === e.target) {
-          e.target.classList.remove("drag-enter");
-          return;
-        }
-
-        // make the exchange
-        draggedEl.parentNode.removeChild(draggedEl);
-        e.target.appendChild(draggedEl);
-        e.target.classList.remove("drag-enter");
-      },
+      weekArr: [
+        { name: "Понедельник", list: [] },
+        { name: "Вторник", list: [] },
+        { name: "Среда", list: [] },
+        { name: "Четверг", list: [] },
+        { name: "Пятница", list: [] },
+        { name: "Суббота", list: [] },
+        { name: "Воскресенье", list: [] },
+      ],
     };
+  },
+  methods: {
+    // add: function () {
+    //   this.list.push({ name: "Juan" });
+    // },
+    // replace: function () {
+    //   this.list = [{ name: "Edgard" }];
+    // },
+    // clone: function (el) {
+    //   return {
+    //     name: el.name + " cloned",
+    //   };
+    // },
+    // log: function (evt) {
+    //   window.console.log(evt);
+    // },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.hooo {
+  width: 100%;
+}
 .inner {
   display: flex;
+  flex-wrap: wrap;
+}
+.list-group {
+  width: 300px;
+  min-height: 200px;
+  margin: 20px;
+  border: 2px solid teal;
+  border-radius: 10px;
+}
+.list-group-item {
+  padding: 15px;
+  border-bottom: 2px solid teal;
+}
+
+.btn-group {
+  font-size: 16px;
+  display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.drop-target {
-  height: 200px;
-  min-width: 200px;
-  background-color: gainsboro;
-}
-
-.drag-enter {
-  outline-style: dashed;
-}
-
-.box {
-  width: 100px;
-  height: 100px;
-  float: left;
-  cursor: pointer;
-}
-
-@media only screen and (max-width: 500px) {
-  .drop-target {
-    height: 200px;
-    width: 100px;
-    min-width: 100px;
-    background-color: gainsboro;
-  }
-
-  .box {
-    width: 50px;
-    height: 50px;
-  }
-}
-
-// .box {
-//   &:nth-child(6) {
-//     clear: both;
-//   }
-// }
-
-.navy {
-  background-color: navy;
-}
-
-.red {
-  background-color: firebrick;
-}
-
-.green {
-  background-color: darkgreen;
-}
-
-.orange {
-  background-color: orange;
+.week-item {
+  display: flex;
+  justify-content: center;
+  max-width: 280px;
+  border: 1px solid teal;
+  border-radius: 10px;
+  font-size: 16px;
 }
 </style>

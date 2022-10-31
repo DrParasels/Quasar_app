@@ -1,13 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
+import MyLayout from "@/layouts/MyLayout.vue";
+import MainPage from "@/pages/MainPage.vue";
+import DayPage from "@/pages/DayPage.vue";
+import WeekPage from "@/pages/WeekPage.vue";
 
 const routes = [
   {
     path: "/",
-    component: () => import("@/layouts/MyLayout.vue"),
+    component: MyLayout,
     children: [
-      { path: "", component: () => import("@/pages/MainPage.vue") },
-      { path: "/day", component: () => import("@/pages/DayPage.vue") },
-      { path: "/week", component: () => import("@/pages/WeekPage.vue") },
+      { path: "", component: MainPage },
+      { path: "/day", component: DayPage },
+      { path: "/week", component: WeekPage },
     ],
   },
 ];
