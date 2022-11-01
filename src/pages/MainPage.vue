@@ -19,6 +19,11 @@
         <li>Прогресс за неделю</li>
       </ul>
     </div>
+    <div class="q-pa-md">
+      <div class="q-gutter-md row items-start">
+        <q-date v-model="date" />
+      </div>
+    </div>
   </div>
   <div class="achivements">
     <h4>Достижения</h4>
@@ -47,11 +52,12 @@ export default {
 <style lang="scss" scoped>
 .inner {
   display: flex;
+  justify-content: space-between;
 }
 .photo {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   &__btn {
     margin-top: 15px;
     display: block;
