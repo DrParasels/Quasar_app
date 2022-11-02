@@ -15,7 +15,6 @@
     </q-item-section>
     <q-item-section>
       <q-item-label>{{ task.title }}</q-item-label>
-      <q-item-label caption>Описание задачи</q-item-label>
     </q-item-section>
     <q-item-section v-if="task.done" side>
       <q-btn

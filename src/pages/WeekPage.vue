@@ -30,7 +30,7 @@
                   size="10px"
                   round
                   color="secondary"
-                  icon="add"
+                  icon="created"
                   @click="add(index)"
                 />
               </div>
@@ -52,26 +52,7 @@ export default {
   data() {
     return {
       weekArr: [
-        {
-          name: "Общие",
-          list: [
-            {
-              id: 1,
-              title: "Hi",
-              done: false,
-            },
-            {
-              id: 2,
-              title: "Hello",
-              done: false,
-            },
-            {
-              id: 3,
-              title: "Bye",
-              done: false,
-            },
-          ],
-        },
+        { name: "Общие", list: [] },
         { name: "Понедельник", list: [] },
         { name: "Вторник", list: [] },
         { name: "Среда", list: [] },
@@ -85,7 +66,7 @@ export default {
   methods: {
     add1(index, model) {
       this.weekArr[index].list.push({
-        id: 2,
+        id: this.findMaxValue,
         title: model,
         done: false,
       });
@@ -100,7 +81,6 @@ export default {
       });
     },
     deleteTask(task) {
-      // console.log(task);
       this.weekArr.forEach((t) => {
         if (t.list.includes(task)) {
           t.list.splice(t.list.indexOf(task), 1);
@@ -112,11 +92,11 @@ export default {
     add(index) {
       this.$q
         .dialog({
-          title: "confirm",
+          title: "Добавить задачу",
           cancel: true,
           prompt: {
             model: "",
-            type: "text", // optional
+            type: "text",
           },
         })
         .onOk((model) => {
@@ -125,6 +105,22 @@ export default {
           }
           this.add1(index, model);
         });
+    },
+  },
+  computed: {
+    findMaxValue() {
+      let maxValue = 0;
+      this.weekArr.forEach((item) => {
+        if (item.list.length > 0) {
+          item.list.forEach((t) => {
+            if (t.id > maxValue) {
+              maxValue = t.id;
+            }
+          });
+        }
+      });
+      maxValue++;
+      return maxValue;
     },
   },
 };

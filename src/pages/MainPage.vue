@@ -3,13 +3,17 @@
   <div class="inner">
     <div class="photo">
       <q-img
-        style="height: 300px; width: 200px; border-radius: 10px"
+        :src="imageUrl"
         spinner-color="white"
-        src="https://cdn.quasar.dev/img/parallax2.jpg"
-      >
-      </q-img>
-      <q-btn class="photo__btn" push color="teal" label="Изменить" />
+        style="height: 400px; width: 600px"
+      ></q-img>
+      <q-file
+        v-model="image"
+        style="width: 600px"
+        @update:model-value="handleUpload()"
+      ></q-file>
     </div>
+
     <div class="statistics">
       <h4 class="statistic__title q-px-md q-my-none">
         Статистика выполненных задач
@@ -43,9 +47,26 @@
 
 <script>
 // @ is an alias to /src
-
+import { ref } from "vue";
 export default {
+  setup() {
+    const image = ref(null);
+    const imageUrl = ref("");
+    const handleUpload = () => {
+      console.log("handleUpload is triggered");
+      if (image.value) {
+        imageUrl.value = URL.createObjectURL(image.value);
+      }
+    };
+
+    return {
+      image,
+      imageUrl,
+      handleUpload,
+    };
+  },
   components: {},
+  methods: {},
 };
 </script>
 
@@ -74,5 +95,9 @@ export default {
     grid-gap: 20px;
     text-align: center;
   }
+}
+
+.q-field__native {
+  display: none;
 }
 </style>
